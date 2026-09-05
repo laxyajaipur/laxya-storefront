@@ -11,7 +11,7 @@ export const products: Product[] = [
     category: ["new-arrivals", "bestsellers"],
     badge: "New",
     images: [
-      "/products/LX-SHR-001/01-front.jpg",
+      "/products/LX-SHR-001/01-front.JPG",
       "/products/LX-SHR-001/02-side.JPG",
       "/products/LX-SHR-001/03-detail.JPG",
       "/products/LX-SHR-001/04-full.JPG",
