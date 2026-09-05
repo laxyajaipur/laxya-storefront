@@ -10,6 +10,10 @@
   --color-foreground: var(--foreground);
   --color-off-white: #faf9f6;
   --color-charcoal: #1c1c1c;
+  --color-gold: #780000;
+  --color-obsidian: #121212;
+  --color-alabaster: #f7f6f2;
+  --color-border: rgba(0, 0, 0, 0.06);
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-cormorant);
 }

@@ -1,39 +1,44 @@
-import Image from "next/image";
-import { NewsletterSignup } from "@/components/newsletter-signup";
+import React from "react";
+import { Header } from "@/components/header";
+import { Hero } from "@/components/hero";
+import { ProductGallery } from "@/components/product-gallery";
+import { EditorialLookbook } from "@/components/editorial-lookbook";
+import { Craftsmanship } from "@/components/craftsmanship";
+import { CartDrawer } from "@/components/cart-drawer";
+import { CheckoutModal } from "@/components/checkout-modal";
+import { SearchOverlay } from "@/components/search-overlay";
+import { ProductQuickView } from "@/components/product-quick-view";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-off-white text-charcoal">
-      <header className="flex shrink-0 justify-center px-6 pt-12 sm:pt-16 md:pt-20">
-        <Image
-          src="/laxya-logo.png"
-          alt="LAXYA."
-          width={220}
-          height={80}
-          priority
-          className="h-auto w-44 sm:w-52 md:w-60"
-        />
-      </header>
+    <div className="relative min-h-screen bg-alabaster text-obsidian flex flex-col justify-between">
+      {/* Global Navigation Header */}
+      <Header />
 
-      <main className="flex flex-1 flex-col items-center justify-center px-6 pb-16 pt-8 sm:px-10">
-        <div className="flex w-full max-w-2xl flex-col items-center text-center">
-          <h1 className="animate-gentle-fade font-serif text-2xl font-light leading-snug tracking-wide text-charcoal sm:text-3xl md:text-4xl md:leading-tight">
-            Jaipur-Crafted Kurtis &amp; Co-ord Sets,
-            <br className="hidden sm:block" />
-            <span className="sm:ml-1">Unveiling Soon.</span>
-          </h1>
+      {/* Main Page Layout */}
+      <main className="flex-1 pt-20">
+        {/* Hero Showcase */}
+        <Hero />
 
-          <p className="mt-6 max-w-lg text-sm leading-relaxed tracking-wide text-charcoal/65 sm:text-base">
-            Timeless ethnic wear for the modern woman — hand-finished
-            kurtis and co-ord sets, rooted in the art of Jaipur
-            craftsmanship.
-          </p>
+        {/* Brand Values / USPs */}
+        <Craftsmanship />
 
-          <div className="my-10 h-px w-16 bg-charcoal/20 sm:my-12" aria-hidden="true" />
+        {/* Curated Product Showcase Grid */}
+        <ProductGallery />
 
-          <NewsletterSignup />
-        </div>
+        {/* Interactive Hotspot Lookbook */}
+        <EditorialLookbook />
       </main>
+
+      {/* Global Brand Footer */}
+      <Footer />
+
+      {/* Slide-overs, Dialog Modals, and Fullscreen Overlays */}
+      <CartDrawer />
+      <CheckoutModal />
+      <SearchOverlay />
+      <ProductQuickView />
     </div>
   );
 }

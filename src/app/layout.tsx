@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   title: "LAXYA. — Women's Kurtis & Co-ord Sets | Launching Soon",
   description:
     "Premium Jaipur-crafted kurtis and co-ord sets for women. LAXYA unveils soon.",
+  icons: {
+    icon: "/laxya-logo-transparent.png",
+    shortcut: "/laxya-logo-transparent.png",
+    apple: "/laxya-logo-transparent.png",
+  },
 };
 
 export default function RootLayout({
