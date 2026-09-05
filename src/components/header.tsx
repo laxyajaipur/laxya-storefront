@@ -66,11 +66,11 @@ export function Header() {
             : "bg-transparent py-6"
         }`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-12">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 md:px-12">
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="flex h-10 w-10 items-center justify-center text-obsidian hover:text-gold md:hidden"
+            className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center text-obsidian hover:text-gold md:hidden shrink-0"
             aria-label="Open navigation menu"
           >
             <Menu className="h-5 w-5" strokeWidth={1.5} />
@@ -115,17 +115,17 @@ export function Header() {
               width={120}
               height={38}
               priority
-              className="h-8 w-auto object-contain"
+              className="h-6 sm:h-8 w-auto object-contain max-w-[100px] sm:max-w-[120px]"
             />
           </div>
 
           {/* Action Area */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-0.5 sm:gap-3 shrink-0">
 
             {/* Search Trigger */}
             <button
               onClick={openSearch}
-              className="flex h-10 w-10 items-center justify-center text-obsidian hover:text-gold transition-colors"
+              className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center text-obsidian hover:text-gold transition-colors"
               aria-label="Search items"
             >
               <Search className="h-4.5 w-4.5" strokeWidth={1.5} />
@@ -137,12 +137,12 @@ export function Header() {
                 setSelectedGalleryTab("wishlist");
                 scrollToSection("gallery");
               }}
-              className="relative flex h-10 w-10 items-center justify-center text-obsidian hover:text-gold transition-colors cursor-pointer"
+              className="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center text-obsidian hover:text-gold transition-colors cursor-pointer"
               aria-label="View Wishlist"
             >
               <Heart className="h-4.5 w-4.5" strokeWidth={1.5} />
               {mounted && wishlistCount > 0 && (
-                <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-gold text-[9px] font-bold text-white">
+                <span className="absolute right-0.5 top-0.5 flex h-3.5 w-3.5 sm:h-4 sm:w-4 items-center justify-center rounded-full bg-gold text-[8px] sm:text-[9px] font-bold text-white">
                   {wishlistCount}
                 </span>
               )}
@@ -151,12 +151,12 @@ export function Header() {
             {/* Shopping Cart Drawer Trigger */}
             <button
               onClick={openCart}
-              className="relative flex h-10 w-10 items-center justify-center text-obsidian hover:text-gold transition-colors"
+              className="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center text-obsidian hover:text-gold transition-colors"
               aria-label="Open Cart"
             >
               <ShoppingBag className="h-4.5 w-4.5" strokeWidth={1.5} />
               {mounted && cartCount > 0 && (
-                <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-gold text-[9px] font-bold text-white">
+                <span className="absolute right-0.5 top-0.5 flex h-3.5 w-3.5 sm:h-4 sm:w-4 items-center justify-center rounded-full bg-gold text-[8px] sm:text-[9px] font-bold text-white">
                   {cartCount}
                 </span>
               )}
