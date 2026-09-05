@@ -80,7 +80,7 @@ function ProductQuickViewContent({ productId, onClose }: ProductQuickViewContent
   return (
     <>
       <DialogContent 
-        className="max-w-4xl overflow-hidden p-0 bg-alabaster border-none md:rounded-none"
+        className="max-w-4xl w-[95vw] md:w-full max-h-[90vh] overflow-y-auto p-0 bg-alabaster border-none md:rounded-none shadow-2xl"
         onPointerDownOutside={(e) => {
           if (isFullscreen) e.preventDefault();
         }}
@@ -189,7 +189,7 @@ function ProductQuickViewContent({ productId, onClose }: ProductQuickViewContent
           </div>
 
         {/* Product Info - 6 columns */}
-        <div className="md:col-span-6 p-8 flex flex-col justify-between">
+        <div className="md:col-span-6 p-6 sm:p-8 flex flex-col justify-between">
           <div>
             {/* Product Badge */}
             {product.badge && (
