@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Search, Heart, ShoppingBag, Menu, X } from "lucide-react";
+import { Search, Heart, ShoppingBag, Menu, X, ChevronDown } from "lucide-react";
 import { useCartStore, getCartItemCount } from "@/stores/cart-store";
 import { useWishlistStore } from "@/stores/wishlist-store";
 import { useUIStore } from "@/stores/ui-store";
@@ -12,7 +12,11 @@ import { products } from "@/data/products";
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileShopOpen, setMobileShopOpen] = useState(false);
+  const [shopDropdownOpen, setShopDropdownOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  const shopDropdownRef = useRef<HTMLDivElement>(null);
 
   const cartItems = useCartStore((state) => state.items);
   const openCart = useCartStore((state) => state.openCart);
@@ -37,11 +41,21 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (shopDropdownRef.current && !shopDropdownRef.current.contains(event.target as Node)) {
+        setShopDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Scroll to sections smoothly
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
+    setShopDropdownOpen(false);
     const element = document.getElementById(id);
     if (element) {
       const offset = 80; // navbar height
@@ -57,13 +71,28 @@ export function Header() {
     }
   };
 
+  const handleCategorySelect = (categoryValue: string) => {
+    setSelectedGalleryTab(categoryValue);
+    scrollToSection("gallery");
+  };
+
+  const shopCategories = [
+    { name: "Cotton Kurta Sets", value: "cotton-kurta-sets" },
+    { name: "Co-ord Sets", value: "co-ord-sets" },
+    { name: "Anarkalis", value: "anarkalis" },
+    { name: "Festive Sets", value: "festive-sets" },
+    { name: "Short Kurtis", value: "short-kurtis" },
+    { name: "Sharara sets", value: "sharara-sets" },
+    { name: "All Products", value: "all" },
+  ];
+
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? "bg-white/80 backdrop-blur-md border-b border-obsidian/5 shadow-sm py-4"
-            : "bg-transparent py-6"
+            ? "bg-white/90 backdrop-blur-md border-b border-obsidian/5 shadow-sm py-4"
+            : "bg-alabaster/80 backdrop-blur-sm py-5 border-b border-obsidian/5"
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 md:px-12">
@@ -76,37 +105,9 @@ export function Header() {
             <Menu className="h-5 w-5" strokeWidth={1.5} />
           </button>
 
-          {/* Nav Links - Desktop */}
-          <nav className="hidden items-center gap-8 md:flex">
-            <button
-              onClick={() => scrollToSection("gallery")}
-              className="text-xs uppercase tracking-[0.2em] text-obsidian/70 transition-colors hover:text-gold cursor-pointer"
-            >
-              Collection
-            </button>
-            <button
-              onClick={() => scrollToSection("craftsmanship")}
-              className="text-xs uppercase tracking-[0.2em] text-obsidian/70 transition-colors hover:text-gold cursor-pointer"
-            >
-              Craftsmanship
-            </button>
-            <button
-              onClick={() => scrollToSection("lookbook")}
-              className="text-xs uppercase tracking-[0.2em] text-obsidian/70 transition-colors hover:text-gold cursor-pointer"
-            >
-              Lookbook
-            </button>
-            <button
-              onClick={() => scrollToSection("vip-club")}
-              className="text-xs uppercase tracking-[0.2em] text-obsidian/70 transition-colors hover:text-gold cursor-pointer"
-            >
-              VIP Club
-            </button>
-          </nav>
-
           {/* Logo */}
           <div 
-            className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 cursor-pointer"
+            className="cursor-pointer shrink-0"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             <Image
@@ -115,12 +116,74 @@ export function Header() {
               width={120}
               height={38}
               priority
-              className="h-6 sm:h-8 w-auto object-contain max-w-[100px] sm:max-w-[120px]"
+              className="h-6 sm:h-8 w-auto object-contain max-w-[100px] sm:max-w-[130px]"
             />
           </div>
 
+          {/* Nav Links - Desktop */}
+          <nav className="hidden items-center gap-8 md:flex">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="text-xs uppercase tracking-[0.2em] font-medium text-obsidian/80 transition-colors hover:text-gold cursor-pointer"
+            >
+              Home
+            </button>
+            <button
+              onClick={() => handleCategorySelect("new-arrivals")}
+              className="text-xs uppercase tracking-[0.2em] font-medium text-obsidian/80 transition-colors hover:text-gold cursor-pointer"
+            >
+              NEW IN
+            </button>
+            
+            {/* SHOP Dropdown */}
+            <div className="relative" ref={shopDropdownRef}>
+              <button
+                onClick={() => setShopDropdownOpen(!shopDropdownOpen)}
+                onMouseEnter={() => setShopDropdownOpen(true)}
+                className="flex items-center gap-1 text-xs uppercase tracking-[0.2em] font-medium text-obsidian/80 transition-colors hover:text-gold cursor-pointer py-1"
+              >
+                <span>SHOP</span>
+                <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${shopDropdownOpen ? "rotate-180 text-gold" : ""}`} />
+              </button>
+
+              {/* Dropdown Menu Overlay */}
+              {shopDropdownOpen && (
+                <div 
+                  className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-md border border-obsidian/10 shadow-xl rounded-sm py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+                  onMouseLeave={() => setShopDropdownOpen(false)}
+                >
+                  <div className="px-4 pb-2 border-b border-obsidian/5 mb-1">
+                    <span className="text-[9px] uppercase tracking-[0.25em] text-gold font-semibold">Categories</span>
+                  </div>
+                  {shopCategories.map((cat) => (
+                    <button
+                      key={cat.value}
+                      onClick={() => handleCategorySelect(cat.value)}
+                      className="w-full text-left px-4 py-2 text-xs text-obsidian/80 hover:bg-gold/10 hover:text-gold font-medium tracking-wide transition-colors flex items-center justify-between cursor-pointer"
+                    >
+                      <span>{cat.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={() => scrollToSection("about-us")}
+              className="text-xs uppercase tracking-[0.2em] font-medium text-obsidian/80 transition-colors hover:text-gold cursor-pointer"
+            >
+              About Us
+            </button>
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="text-xs uppercase tracking-[0.2em] font-medium text-obsidian/80 transition-colors hover:text-gold cursor-pointer"
+            >
+              Contact
+            </button>
+          </nav>
+
           {/* Action Area */}
-          <div className="flex items-center gap-0.5 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-3 shrink-0">
 
             {/* Search Trigger */}
             <button
@@ -173,55 +236,87 @@ export function Header() {
         onClick={() => setMobileMenuOpen(false)}
       >
         <div
-          className={`absolute top-0 left-0 bottom-0 w-72 bg-alabaster/95 p-6 shadow-2xl transition-transform duration-300 ease-out backdrop-blur-md ${
+          className={`absolute top-0 left-0 bottom-0 w-80 bg-alabaster/95 p-6 shadow-2xl transition-transform duration-300 ease-out backdrop-blur-md flex flex-col justify-between overflow-y-auto ${
             mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
           }`}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-center justify-between border-b border-obsidian/5 pb-4">
-            <Image
-              src="/laxya-logo-transparent.png"
-              alt="LAXYA."
-              width={100}
-              height={32}
-              className="h-7 w-auto object-contain"
-            />
-            <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="p-1 text-obsidian hover:text-gold"
-            >
-              <X className="h-5 w-5" strokeWidth={1.5} />
-            </button>
+          <div>
+            <div className="flex items-center justify-between border-b border-obsidian/5 pb-4">
+              <Image
+                src="/laxya-logo-transparent.png"
+                alt="LAXYA."
+                width={100}
+                height={32}
+                className="h-7 w-auto object-contain"
+              />
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-1 text-obsidian hover:text-gold"
+              >
+                <X className="h-5 w-5" strokeWidth={1.5} />
+              </button>
+            </div>
+
+            <nav className="mt-8 flex flex-col gap-5">
+              <button
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  setMobileMenuOpen(false);
+                }}
+                className="text-left text-sm uppercase tracking-[0.2em] font-medium text-obsidian/85 transition-colors hover:text-gold cursor-pointer"
+              >
+                Home
+              </button>
+              
+              <button
+                onClick={() => handleCategorySelect("new-arrivals")}
+                className="text-left text-sm uppercase tracking-[0.2em] font-medium text-obsidian/85 transition-colors hover:text-gold cursor-pointer"
+              >
+                NEW IN
+              </button>
+
+              {/* Mobile Shop Collapsible */}
+              <div>
+                <button
+                  onClick={() => setMobileShopOpen(!mobileShopOpen)}
+                  className="w-full flex items-center justify-between text-left text-sm uppercase tracking-[0.2em] font-medium text-obsidian/85 transition-colors hover:text-gold cursor-pointer py-1"
+                >
+                  <span>SHOP</span>
+                  <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${mobileShopOpen ? "rotate-180 text-gold" : ""}`} />
+                </button>
+
+                {mobileShopOpen && (
+                  <div className="mt-2 ml-3 pl-3 border-l border-gold/30 flex flex-col gap-3 py-2">
+                    {shopCategories.map((cat) => (
+                      <button
+                        key={cat.value}
+                        onClick={() => handleCategorySelect(cat.value)}
+                        className="text-left text-xs text-obsidian/75 hover:text-gold font-medium tracking-wide transition-colors cursor-pointer"
+                      >
+                        {cat.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <button
+                onClick={() => scrollToSection("about-us")}
+                className="text-left text-sm uppercase tracking-[0.2em] font-medium text-obsidian/85 transition-colors hover:text-gold cursor-pointer"
+              >
+                About Us
+              </button>
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="text-left text-sm uppercase tracking-[0.2em] font-medium text-obsidian/85 transition-colors hover:text-gold cursor-pointer"
+              >
+                Contact
+              </button>
+            </nav>
           </div>
 
-          <nav className="mt-8 flex flex-col gap-6">
-            <button
-              onClick={() => scrollToSection("gallery")}
-              className="text-left text-sm uppercase tracking-[0.2em] text-obsidian/85 transition-colors hover:text-gold cursor-pointer"
-            >
-              Collection
-            </button>
-            <button
-              onClick={() => scrollToSection("craftsmanship")}
-              className="text-left text-sm uppercase tracking-[0.2em] text-obsidian/85 transition-colors hover:text-gold cursor-pointer"
-            >
-              Craftsmanship
-            </button>
-            <button
-              onClick={() => scrollToSection("lookbook")}
-              className="text-left text-sm uppercase tracking-[0.2em] text-obsidian/85 transition-colors hover:text-gold cursor-pointer"
-            >
-              Lookbook
-            </button>
-            <button
-              onClick={() => scrollToSection("vip-club")}
-              className="text-left text-sm uppercase tracking-[0.2em] text-obsidian/85 transition-colors hover:text-gold cursor-pointer"
-            >
-              VIP Club
-            </button>
-          </nav>
-
-          <div className="absolute bottom-8 left-6 right-6 border-t border-obsidian/5 pt-6 text-center">
+          <div className="border-t border-obsidian/5 pt-6 text-center">
             <p className="text-[10px] uppercase tracking-widest text-obsidian/40">
               Laxya Jaipur Storefront
             </p>
@@ -231,3 +326,4 @@ export function Header() {
     </>
   );
 }
+

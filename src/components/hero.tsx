@@ -4,10 +4,12 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { heroImages, heroSlides } from "@/data/products";
+import { useUIStore } from "@/stores/ui-store";
 import Image from "next/image";
 
 export function Hero() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const setSelectedGalleryTab = useUIStore((state) => state.setSelectedGalleryTab);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -92,9 +94,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-6 max-w-lg text-sm leading-relaxed tracking-wide text-obsidian/75 sm:text-base md:text-lg"
+            className="mt-6 max-w-lg text-sm font-semibold uppercase tracking-[0.2em] text-obsidian sm:text-base md:text-lg leading-relaxed"
           >
-            Handcrafted luxury designed for the modern connoisseur. Rooted in heritage, styled for today.
+            SHOP NOW OR EXPLORE THE COLLECTION OR SHOP THE LATEST
           </motion.p>
 
           {/* Dual CTAs */}
@@ -106,17 +108,20 @@ export function Hero() {
           >
             <Button
               variant="gold"
-              onClick={() => scrollToSection("gallery")}
+              onClick={() => {
+                setSelectedGalleryTab("all");
+                scrollToSection("gallery");
+              }}
               className="px-8 py-3 text-xs tracking-[0.2em] font-medium shadow-md hover:shadow-lg transition-all"
             >
-              Explore Collection
+              SHOP NOW
             </Button>
             <Button
               variant="outline"
-              onClick={() => scrollToSection("lookbook")}
+              onClick={() => scrollToSection("about-us")}
               className="px-8 py-3 text-xs tracking-[0.2em] font-medium"
             >
-              Our Story
+              OUR STORY
             </Button>
           </motion.div>
         </div>

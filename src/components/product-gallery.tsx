@@ -7,7 +7,7 @@ import { useCurrencyStore } from "@/stores/currency-store";
 import { useWishlistStore } from "@/stores/wishlist-store";
 import { useUIStore } from "@/stores/ui-store";
 import { formatPrice } from "@/lib/currency";
-import { Heart, Eye, Loader2 } from "lucide-react";
+import { Heart, Eye, Loader2, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import type { ProductCategory, Product } from "@/types";
@@ -56,11 +56,15 @@ export function ProductGallery() {
   const validWishlistCount = wishlistItems.filter((id) => products.some((p) => p.id === id)).length;
 
   const categories: { value: string; label: string }[] = [
-    { value: "all", label: "All Works" },
-    { value: "wishlist", label: `Wishlist (${mounted ? validWishlistCount : 0})` },
+    { value: "all", label: "All Products" },
     { value: "new-arrivals", label: "New Arrivals" },
-    { value: "bestsellers", label: "Bestsellers" },
-    { value: "limited-edition", label: "Limited Edition" },
+    { value: "cotton-kurta-sets", label: "Cotton Kurta Sets" },
+    { value: "co-ord-sets", label: "Co-ord Sets" },
+    { value: "anarkalis", label: "Anarkalis" },
+    { value: "festive-sets", label: "Festive Sets" },
+    { value: "short-kurtis", label: "Short Kurtis" },
+    { value: "sharara-sets", label: "Sharara Sets" },
+    { value: "wishlist", label: `Wishlist (${mounted ? validWishlistCount : 0})` },
   ];
 
   const filteredProducts = getFilteredProducts(activeTab);
@@ -69,17 +73,24 @@ export function ProductGallery() {
     <section id="gallery" className="py-20 bg-alabaster md:py-28">
       <div className="mx-auto max-w-7xl px-6 md:px-12">
         
-        {/* Header Title */}
-        <div className="flex flex-col items-center text-center">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold">
-            Curated Creations
-          </span>
-          <h2 className="mt-3 font-serif text-3xl font-light tracking-wide text-obsidian sm:text-4xl md:text-5xl">
-            The Laxya Collection
-          </h2>
-          <p className="mt-4 max-w-md text-xs leading-relaxed tracking-wider text-obsidian/50">
-            Hand-block printed mulmul, resham borders, and luxury linen ensembles designed to tell a heritage story.
-          </p>
+        {/* Header Title with New Arrivals & View All */}
+        <div className="flex flex-col md:flex-row items-center justify-between border-b border-obsidian/10 pb-6 gap-4">
+          <div>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold">
+              Handcrafted Collection
+            </span>
+            <h2 className="mt-1 font-serif text-3xl font-light tracking-wide text-obsidian sm:text-4xl">
+              NEW ARRIVALS
+            </h2>
+          </div>
+
+          <button
+            onClick={() => handleTabChange("all")}
+            className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-medium text-obsidian hover:text-gold transition-colors cursor-pointer"
+          >
+            <span>View All</span>
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </button>
         </div>
 
         {/* Radix Tabs Component */}
@@ -87,14 +98,14 @@ export function ProductGallery() {
           defaultValue="all"
           value={activeTab}
           onValueChange={handleTabChange}
-          className="mt-12 flex flex-col items-center"
+          className="mt-8 flex flex-col items-center"
         >
-          <TabsList className="mb-6 flex flex-wrap justify-center border-b border-obsidian/5 bg-transparent p-0">
+          <TabsList className="mb-6 flex flex-wrap justify-center gap-1 border-b border-obsidian/5 bg-transparent p-0">
             {categories.map((cat) => (
               <TabsTrigger
                 key={cat.value}
                 value={cat.value}
-                className="cursor-pointer px-5 pb-3 text-xs uppercase tracking-[0.16em]"
+                className="cursor-pointer px-4 pb-3 text-xs uppercase tracking-[0.14em]"
               >
                 {cat.label}
               </TabsTrigger>

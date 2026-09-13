@@ -8,7 +8,7 @@ export const products: Product[] = [
     description:
       "Elegantly tailored peach short kurta with coordinated flared palazzo pants and gold zari border dupatta.",
     priceUSD: 2999,
-    category: ["new-arrivals", "bestsellers"],
+    category: ["new-arrivals", "bestsellers", "sharara-sets", "festive-sets"],
     badge: "New",
     images: [
       "/products/LX-SHR-001/01-front.JPG",
@@ -26,7 +26,7 @@ export const products: Product[] = [
     description:
       "Paisley printed crop top with high-waisted flared trousers, crafted from premium linen-cotton.",
     priceUSD: 2499,
-    category: ["limited-edition", "bestsellers"],
+    category: ["limited-edition", "bestsellers", "co-ord-sets"],
     badge: "Limited",
     images: [
       "/products/LX-PRN-002/01-front.JPG",
@@ -44,7 +44,7 @@ export const products: Product[] = [
     description:
       "Sleeveless sky blue kurta with coordinated straight pants and matching organza dupatta.",
     priceUSD: 2799,
-    category: ["new-arrivals"],
+    category: ["new-arrivals", "cotton-kurta-sets", "short-kurtis"],
     badge: "Bestseller",
     images: [
       "/products/LX-SLK-003/01-front.JPG",
@@ -63,7 +63,7 @@ export const products: Product[] = [
     description:
       "Stunning floor-length festive dress in vibrant crimson pink, with contrasting light pink dupatta.",
     priceUSD: 2399,
-    category: ["new-arrivals", "bestsellers", "limited-edition"],
+    category: ["new-arrivals", "bestsellers", "limited-edition", "anarkalis", "festive-sets"],
     badge: "Exclusive",
     images: [
       "/products/LX-CRM-004/01-front.JPG",

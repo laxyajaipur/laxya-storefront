@@ -4,7 +4,15 @@ export type ProductCategory =
   | "all"
   | "new-arrivals"
   | "bestsellers"
-  | "limited-edition";
+  | "limited-edition"
+  | "cotton-kurta-sets"
+  | "co-ord-sets"
+  | "anarkalis"
+  | "festive-sets"
+  | "short-kurtis"
+  | "sharara-sets"
+  | "wishlist";
+
 
 export interface Product {
   id: string;

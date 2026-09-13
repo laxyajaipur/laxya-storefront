@@ -1,6 +1,7 @@
 import React from "react";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
+import { ShopByCategory } from "@/components/shop-by-category";
 import { ProductGallery } from "@/components/product-gallery";
 import { EditorialLookbook } from "@/components/editorial-lookbook";
 import { Craftsmanship } from "@/components/craftsmanship";
@@ -21,11 +22,14 @@ export default function Home() {
         {/* Hero Showcase */}
         <Hero />
 
-        {/* Brand Values / USPs */}
-        <Craftsmanship />
+        {/* Shop By Category Grid */}
+        <ShopByCategory />
 
         {/* Curated Product Showcase Grid */}
         <ProductGallery />
+
+        {/* Brand Story / About Us & Craftsmanship USPs */}
+        <Craftsmanship />
 
         {/* Interactive Hotspot Lookbook */}
         <EditorialLookbook />

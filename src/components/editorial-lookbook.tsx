@@ -30,7 +30,7 @@ export function EditorialLookbook() {
           <h2 className="mt-3 font-serif text-3xl font-light tracking-wide text-obsidian sm:text-4xl md:text-5xl">
             Senses of Jaipur
           </h2>
-          <p className="mt-4 max-w-md text-xs leading-relaxed tracking-wider text-obsidian/50">
+          <p className="mt-4 max-w-md text-xs sm:text-sm leading-relaxed tracking-wider text-obsidian/85 font-medium">
             Click on the pulsing brass pins to discover individual hand-tailored garments directly from the lookbook.
           </p>
         </div>

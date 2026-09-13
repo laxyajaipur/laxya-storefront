@@ -104,20 +104,20 @@ export function Footer() {
                   setEmail(e.target.value);
                   if (status !== "idle") setStatus("idle");
                 }}
-                className="h-11 bg-white border border-obsidian/10 tracking-wide"
+                className="h-11 bg-white border border-obsidian/20 tracking-wide text-obsidian font-medium"
                 required
               />
-              <Button type="submit" variant="dark" className="h-11 px-6 uppercase tracking-[0.18em] shrink-0">
+              <Button type="submit" variant="dark" className="h-11 px-6 uppercase tracking-[0.18em] shrink-0 font-semibold">
                 {status === "success" ? <Check className="h-4 w-4" /> : "Subscribe"}
               </Button>
             </form>
             {status === "success" && (
-              <p className="mt-3.5 text-xs text-gold font-medium tracking-wide">
+              <p className="mt-3.5 text-xs text-gold font-semibold tracking-wide">
                 Welcome. You are now subscribed to the House of Laxya.
               </p>
             )}
             {status === "error" && (
-              <p className="mt-3.5 text-xs text-red-600 tracking-wide">
+              <p className="mt-3.5 text-xs text-red-600 tracking-wide font-medium">
                 Please provide a valid email address.
               </p>
             )}
@@ -127,7 +127,7 @@ export function Footer() {
         {/* Mid Grid Section */}
         <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-12 py-12">
           {/* Brand Column */}
-          <div className="md:col-span-4">
+          <div className="md:col-span-5">
             <Image
               src="/laxya-logo-transparent.png"
               alt="LAXYA."
@@ -136,76 +136,71 @@ export function Footer() {
               className="h-8 w-auto object-contain cursor-pointer hover:opacity-85 transition-opacity"
               onClick={handleScrollToTop}
             />
-            <p className="mt-4 text-xs leading-relaxed tracking-wider text-obsidian/50 max-w-sm">
+            <p className="mt-4 text-xs sm:text-sm leading-relaxed tracking-wider text-obsidian/85 font-medium max-w-sm">
               Rooted in the timeless artisan heritage of Jaipur, Laxya crafts luxury kurtas, straight palazzo trousers, and premium linen co-ord sets designed for the modern global woman.
             </p>
-            
-            {/* Social Icons with hover micro-animations */}
-            <div className="mt-6 flex gap-4">
+          </div>
+
+          {/* Help Column */}
+          <div id="contact" className="md:col-span-3 md:col-start-6">
+            <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-obsidian">
+              Help
+            </h4>
+            <ul className="mt-4 space-y-2.5 text-xs text-obsidian/85 font-medium tracking-wide">
+              <li>
+                <a href="mailto:support@laxyajaipur.com" className="hover:text-gold transition-colors">
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <span className="hover:text-gold transition-colors cursor-pointer">
+                  Size Guide
+                </span>
+              </li>
+              <li>
+                <span className="hover:text-gold transition-colors cursor-pointer">
+                  Shipping
+                </span>
+              </li>
+              <li>
+                <span className="hover:text-gold transition-colors cursor-pointer">
+                  Returns &amp; Exchanges
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Follow Us Column */}
+          <div className="md:col-span-4">
+            <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-obsidian">
+              Follow us
+            </h4>
+            <div className="mt-4 flex flex-col items-start gap-3">
               <a
-                href="https://instagram.com"
+                href="https://instagram.com/laxyajaipur"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex h-9 w-9 items-center justify-center rounded-full bg-white text-obsidian border border-obsidian/5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:text-gold"
-                aria-label="Instagram Page"
+                className="inline-flex items-center gap-2.5 text-xs text-obsidian hover:text-gold transition-colors font-semibold group cursor-pointer"
               >
-                <InstagramIcon className="transition-transform group-hover:scale-110" />
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-obsidian border border-obsidian/20 shadow-sm transition-transform group-hover:scale-110 group-hover:border-gold group-hover:text-gold">
+                  <InstagramIcon className="h-4 w-4" />
+                </div>
+                <span className="tracking-wide">@laxyajaipur</span>
               </a>
-              <a
-                href="https://pinterest.com"
-                target="_blank"
-                rel="noreferrer"
-                className="group flex h-9 w-9 items-center justify-center rounded-full bg-white text-obsidian border border-obsidian/5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:text-gold"
-                aria-label="Pinterest Page"
-              >
-                <PinterestIcon className="text-obsidian group-hover:text-gold transition-transform group-hover:scale-110" />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                className="group flex h-9 w-9 items-center justify-center rounded-full bg-white text-obsidian border border-obsidian/5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:text-gold"
-                aria-label="Facebook Page"
-              >
-                <FacebookIcon className="transition-transform group-hover:scale-110" />
-              </a>
+              <p className="text-[11px] text-obsidian/75 font-medium tracking-wide">
+                Join our Instagram community for exclusive behind-the-scenes artisanal stories and styling tips.
+              </p>
             </div>
-          </div>
-
-          {/* Links Column 1 */}
-          <div className="md:col-span-3 md:col-start-6">
-            <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-obsidian">
-              Collections
-            </h4>
-            <ul className="mt-4 space-y-2.5 text-xs text-obsidian/60 tracking-wide">
-              <li><span className="hover:text-gold transition-colors cursor-pointer">New Arrivals</span></li>
-              <li><span className="hover:text-gold transition-colors cursor-pointer">Bestsellers</span></li>
-              <li><span className="hover:text-gold transition-colors cursor-pointer">Limited Editions</span></li>
-              <li><span className="hover:text-gold transition-colors cursor-pointer">Bespoke Silk Series</span></li>
-            </ul>
-          </div>
-
-          {/* Links Column 2 */}
-          <div className="md:col-span-3">
-            <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-obsidian">
-              Bespoke Services
-            </h4>
-            <ul className="mt-4 space-y-2.5 text-xs text-obsidian/60 tracking-wide">
-              <li><span className="hover:text-gold transition-colors cursor-pointer">Bespoke Fitting</span></li>
-              <li><span className="hover:text-gold transition-colors cursor-pointer">Care Instructions</span></li>
-              <li><span className="hover:text-gold transition-colors cursor-pointer">Shipping &amp; Insurance</span></li>
-              <li><span className="hover:text-gold transition-colors cursor-pointer">Returns &amp; Exchanges</span></li>
-            </ul>
           </div>
         </div>
 
         {/* Bottom Legal Section */}
-        <div className="mt-8 pt-8 border-t border-obsidian/5 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-8 pt-8 border-t border-obsidian/10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col items-center md:items-start gap-2">
-            <p className="text-[10px] text-obsidian/45 uppercase tracking-widest">
+            <p className="text-[10px] text-obsidian/75 font-medium uppercase tracking-widest">
               &copy; {currentYear} House of Laxya Jaipur. All rights reserved.
             </p>
-            <div className="flex gap-4 text-[10px] text-obsidian/40 uppercase tracking-widest">
+            <div className="flex gap-4 text-[10px] text-obsidian/70 font-medium uppercase tracking-widest">
               <span className="hover:text-gold transition-colors cursor-pointer">Privacy Policy</span>
               <span>•</span>
               <span className="hover:text-gold transition-colors cursor-pointer">Terms of Service</span>
