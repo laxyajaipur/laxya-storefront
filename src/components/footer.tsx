@@ -177,7 +177,7 @@ export function Footer() {
             </h4>
             <div className="mt-4 flex flex-col items-start gap-3">
               <a
-                href="https://instagram.com/laxyajaipur"
+                href="https://www.instagram.com/laxya.jaipur"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2.5 text-xs text-obsidian hover:text-gold transition-colors font-semibold group cursor-pointer"
@@ -185,7 +185,7 @@ export function Footer() {
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-obsidian border border-obsidian/20 shadow-sm transition-transform group-hover:scale-110 group-hover:border-gold group-hover:text-gold">
                   <InstagramIcon className="h-4 w-4" />
                 </div>
-                <span className="tracking-wide">@laxyajaipur</span>
+                <span className="tracking-wide">@laxya.jaipur</span>
               </a>
               <p className="text-[11px] text-obsidian/75 font-medium tracking-wide">
                 Join our Instagram community for exclusive behind-the-scenes artisanal stories and styling tips.
