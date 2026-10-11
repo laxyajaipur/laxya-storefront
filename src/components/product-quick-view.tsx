@@ -101,7 +101,6 @@ function ProductQuickViewContent({ productId, onClose }: ProductQuickViewContent
                 src={currentImage}
                 alt={`${product.name} image ${currentImageIndex + 1}`}
                 fill
-                quality={95}
                 className="object-cover transition-transform duration-500 group-hover:scale-103"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 priority
@@ -191,12 +190,19 @@ function ProductQuickViewContent({ productId, onClose }: ProductQuickViewContent
         {/* Product Info - 6 columns */}
         <div className="md:col-span-6 p-6 sm:p-8 flex flex-col justify-between">
           <div>
-            {/* Product Badge */}
-            {product.badge && (
-              <span className="inline-block text-[9px] font-medium uppercase tracking-[0.2em] text-gold border border-gold/25 px-2.5 py-0.5 rounded-full bg-gold/5 mb-4">
-                {product.badge}
-              </span>
-            )}
+            {/* SKU & Product Badge */}
+            <div className="flex items-center justify-between mb-3">
+              {product.sku && (
+                <span className="text-[11px] font-mono tracking-widest text-obsidian/45 uppercase font-medium">
+                  SKU: {product.sku}
+                </span>
+              )}
+              {product.badge && (
+                <span className="inline-block text-[9px] font-medium uppercase tracking-[0.2em] text-gold border border-gold/25 px-2.5 py-0.5 rounded-full bg-gold/5">
+                  {product.badge}
+                </span>
+              )}
+            </div>
 
             {/* Title & Price */}
             <h2 className="font-serif text-2xl font-light tracking-wide text-obsidian sm:text-3xl">
@@ -334,7 +340,6 @@ function ProductQuickViewContent({ productId, onClose }: ProductQuickViewContent
                   alt={`${product.name} full image view ${currentImageIndex + 1}`}
                   fill
                   priority
-                  quality={95}
                   className="object-contain max-h-[85vh] max-w-[92vw]"
                   sizes="100vw"
                 />

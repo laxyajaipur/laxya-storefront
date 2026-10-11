@@ -235,6 +235,11 @@ export function ProductGallery() {
 
                           {/* Product Info Description */}
                           <div className="mt-4 flex flex-col items-center text-center">
+                            {product.sku && (
+                              <span className="text-[10px] tracking-widest text-obsidian/40 uppercase mb-1 font-mono font-medium">
+                                {product.sku}
+                              </span>
+                            )}
                             <h3
                               className="font-serif text-sm font-light tracking-wide text-obsidian hover:text-gold transition-colors cursor-pointer"
                               onClick={() => openQuickView(product.id)}

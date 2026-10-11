@@ -42,7 +42,6 @@ export function EditorialLookbook() {
             alt="Laxya Editorial Lookbook"
             fill
             priority
-            quality={95}
             className="object-cover"
             sizes="(max-width: 1200px) 100vw, 1200px"
           />

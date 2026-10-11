@@ -54,7 +54,6 @@ export function Hero() {
               alt="Laxya Luxury Collection"
               fill
               priority
-              quality={95}
               className={`object-cover ${currentSlide.objectPosition}`}
               sizes="100vw"
             />
