@@ -25,6 +25,7 @@ export interface Product {
   images: string[];
   sizes: string[];
   inStock: boolean;
+  shopifyVariantMap?: Record<string, string>;
 }
 
 export interface CartItem {

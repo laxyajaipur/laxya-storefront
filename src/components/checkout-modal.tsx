@@ -9,6 +9,7 @@ import { useCurrencyStore } from "@/stores/currency-store";
 import { useCartTotals } from "@/hooks/use-cart-totals";
 import { getProductById } from "@/data/products";
 import { formatPrice } from "@/lib/currency";
+import { buildShopifyCheckoutUrl } from "@/lib/shopify";
 import {
   CreditCard,
   Lock,
@@ -319,6 +320,20 @@ For concierge support, please reach out to concierge@laxya.co
                   >
                     <ArrowLeft className="h-3 w-3" /> Back
                   </button>
+                </div>
+
+                {/* Shopify Cashfree & COD Direct Checkout */}
+                <div className="rounded border border-gold/30 bg-gold/5 p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div>
+                    <h4 className="text-xs font-semibold text-obsidian uppercase tracking-wider">Fast Checkout with Cashfree & COD</h4>
+                    <p className="text-[11px] text-obsidian/60 mt-0.5">Pay via PhonePe, GPay, Paytm, Cards or Cash on Delivery through Shopify.</p>
+                  </div>
+                  <a
+                    href={buildShopifyCheckoutUrl(items)}
+                    className="shrink-0 h-9 px-5 bg-obsidian text-alabaster text-[10px] font-semibold uppercase tracking-[0.15em] flex items-center justify-center gap-1.5 hover:bg-gold hover:text-obsidian transition-all shadow-sm"
+                  >
+                    Pay via Shopify <ArrowRight className="h-3 w-3" />
+                  </a>
                 </div>
 
                 {/* Provider Selector Tabs */}

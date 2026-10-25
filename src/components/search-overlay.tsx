@@ -133,11 +133,6 @@ function SearchOverlayContent({ onClose }: SearchOverlayContentProps) {
                     </div>
                     <div className="flex flex-col justify-between py-1">
                       <div>
-                        {product.sku && (
-                          <span className="text-[10px] font-mono tracking-widest text-obsidian/45 uppercase font-medium">
-                            {product.sku}
-                          </span>
-                        )}
                         <h5 className="font-serif text-sm font-light tracking-wide text-obsidian transition-colors group-hover:text-gold">
                           {product.name}
                         </h5>

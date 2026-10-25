@@ -8,7 +8,8 @@ import { useCartTotals } from "@/hooks/use-cart-totals";
 import { getProductById } from "@/data/products";
 import { formatPrice, CURRENCY_SYMBOLS } from "@/lib/currency";
 import { validatePromoCode } from "@/lib/promo-codes";
-import { Minus, Plus, Trash2, Tag, ShieldCheck, ShoppingBag, X } from "lucide-react";
+import { buildShopifyCheckoutUrl, createShopifyCheckout } from "@/lib/shopify";
+import { Minus, Plus, Trash2, Tag, ShieldCheck, ShoppingBag, X, Loader2 } from "lucide-react";
 import Image from "next/image";
 
 export function CartDrawer() {
@@ -38,6 +39,17 @@ export function CartDrawer() {
   const [promoInput, setPromoInput] = useState("");
   const [promoError, setPromoError] = useState("");
   const [promoSuccess, setPromoSuccess] = useState("");
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+
+  const handleShopifyCheckout = async () => {
+    setIsCheckingOut(true);
+    try {
+      const url = await createShopifyCheckout(items);
+      window.location.href = url;
+    } catch {
+      window.location.href = buildShopifyCheckoutUrl(items);
+    }
+  };
 
   const handleApplyPromo = (e: React.FormEvent) => {
     e.preventDefault();
@@ -264,13 +276,22 @@ export function CartDrawer() {
             {/* Checkout Actions */}
             <div className="mt-6 space-y-3">
               <button
-                onClick={openCheckout}
-                className="w-full h-12 bg-obsidian text-alabaster text-xs font-semibold uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:bg-gold hover:text-obsidian transition-all shadow-md active:scale-[0.99]"
+                onClick={handleShopifyCheckout}
+                disabled={isCheckingOut}
+                className="w-full h-12 bg-obsidian text-alabaster text-xs font-semibold uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:bg-gold hover:text-obsidian transition-all shadow-md active:scale-[0.99] disabled:opacity-75 cursor-pointer"
               >
-                <ShieldCheck className="h-4 w-4" /> Secure Checkout
+                {isCheckingOut ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" /> Preparing Checkout...
+                  </>
+                ) : (
+                  <>
+                    <ShieldCheck className="h-4 w-4" /> Secure Checkout (Cashfree & COD)
+                  </>
+                )}
               </button>
               <p className="text-[9px] text-center text-obsidian/45 tracking-widest uppercase">
-                Secure SSL Checkout • PCI-DSS Compliant
+                Instant UPI, Cards & Cash on Delivery • Powered by Shopify
               </p>
             </div>
           </div>

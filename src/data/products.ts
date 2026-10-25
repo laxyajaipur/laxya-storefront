@@ -368,6 +368,10 @@ export const products: Product[] = [
     ],
     sizes: ["S", "M", "L", "XL"],
     inStock: true,
+    shopifyVariantMap: {
+      M: "67976479310193",
+      XL: "67976479342961",
+    },
   },
   {
     id: "cotton-printed-gopi-dress",
