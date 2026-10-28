@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
 import { Search, Heart, ShoppingBag, Menu, X, ChevronDown } from "lucide-react";
 import { useCartStore, getCartItemCount } from "@/stores/cart-store";
 import { useWishlistStore } from "@/stores/wishlist-store";
@@ -10,6 +11,8 @@ import { useUIStore } from "@/stores/ui-store";
 import { products } from "@/data/products";
 
 export function Header() {
+  const router = useRouter();
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileShopOpen, setMobileShopOpen] = useState(false);
@@ -56,6 +59,10 @@ export function Header() {
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
     setShopDropdownOpen(false);
+    if (pathname !== "/") {
+      router.push(`/#${id}`);
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
       const offset = 80; // navbar height
@@ -71,9 +78,22 @@ export function Header() {
     }
   };
 
+  const handleHomeClick = () => {
+    setMobileMenuOpen(false);
+    if (pathname !== "/") {
+      router.push("/");
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const handleCategorySelect = (categoryValue: string) => {
     setSelectedGalleryTab(categoryValue);
-    scrollToSection("gallery");
+    if (pathname !== "/") {
+      router.push("/#gallery");
+    } else {
+      scrollToSection("gallery");
+    }
   };
 
   const shopCategories = [
@@ -108,7 +128,7 @@ export function Header() {
           {/* Logo */}
           <div 
             className="cursor-pointer shrink-0"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={handleHomeClick}
           >
             <Image
               src="/laxya-logo-transparent.png"
@@ -123,7 +143,7 @@ export function Header() {
           {/* Nav Links - Desktop */}
           <nav className="hidden items-center gap-8 md:flex">
             <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              onClick={handleHomeClick}
               className="text-xs uppercase tracking-[0.2em] font-medium text-obsidian/80 transition-colors hover:text-gold cursor-pointer"
             >
               Home
@@ -260,10 +280,7 @@ export function Header() {
 
             <nav className="mt-8 flex flex-col gap-5">
               <button
-                onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                  setMobileMenuOpen(false);
-                }}
+                onClick={handleHomeClick}
                 className="text-left text-sm uppercase tracking-[0.2em] font-medium text-obsidian/85 transition-colors hover:text-gold cursor-pointer"
               >
                 Home

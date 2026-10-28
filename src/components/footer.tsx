@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Check } from "lucide-react";
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
+import { Check, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -25,37 +27,9 @@ function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={props.className}
-      style={{ width: "16px", height: "16px" }}
-    >
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-    </svg>
-  );
-}
-
-function PinterestIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={props.className}
-      style={{ width: "16px", height: "16px" }}
-    >
-      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.08 3.16 9.42 7.63 11.16-.1-.95-.2-2.4.04-3.43.22-.93 1.4-5.93 1.4-5.93s-.36-.72-.36-1.77c0-1.66.96-2.9 2.16-2.9 1.02 0 1.51.77 1.51 1.68 0 1.03-.65 2.56-.99 3.98-.28 1.18.59 2.15 1.75 2.15 2.1 0 3.72-2.22 3.72-5.42 0-2.84-2.04-4.82-4.94-4.82-3.37 0-5.35 2.53-5.35 5.14 0 1.02.39 2.11.88 2.7.1.12.11.23.08.35-.1.38-.31 1.25-.35 1.42-.05.21-.18.26-.41.15-1.52-.7-2.47-2.92-2.47-4.7 0-3.83 2.78-7.35 8.03-7.35 4.21 0 7.49 3 7.49 7.01 0 4.19-2.64 7.56-6.3 7.56-1.23 0-2.39-.64-2.79-1.4l-.76 2.9c-.27 1.05-1 2.37-1.49 3.16C8.53 23.85 10.22 24 12 24c6.63 0 12-5.37 12-12S18.63 0 12 0z"/>
-    </svg>
-  );
-}
-
 export function Footer() {
+  const router = useRouter();
+  const pathname = usePathname();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
@@ -72,8 +46,12 @@ export function Footer() {
 
   const currentYear = new Date().getFullYear();
 
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleLogoClick = () => {
+    if (pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      router.push("/");
+    }
   };
 
   return (
@@ -113,7 +91,7 @@ export function Footer() {
             </form>
             {status === "success" && (
               <p className="mt-3.5 text-xs text-gold font-semibold tracking-wide">
-                Welcome. You are now subscribed to the House of Laxya.
+                Welcome. You are now subscribed to LAXYA.
               </p>
             )}
             {status === "error" && (
@@ -125,53 +103,91 @@ export function Footer() {
         </div>
 
         {/* Mid Grid Section */}
-        <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-12 py-12">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-12 py-12">
           {/* Brand Column */}
-          <div className="md:col-span-5">
-            <Image
-              src="/laxya-logo-transparent.png"
-              alt="LAXYA."
-              width={120}
-              height={38}
-              className="h-8 w-auto object-contain cursor-pointer hover:opacity-85 transition-opacity"
-              onClick={handleScrollToTop}
-            />
+          <div className="md:col-span-4">
+            <div onClick={handleLogoClick} className="cursor-pointer inline-block">
+              <Image
+                src="/laxya-logo-transparent.png"
+                alt="LAXYA."
+                width={120}
+                height={38}
+                className="h-8 w-auto object-contain hover:opacity-85 transition-opacity"
+              />
+            </div>
             <p className="mt-4 text-xs sm:text-sm leading-relaxed tracking-wider text-obsidian/85 font-medium max-w-sm">
               Rooted in the timeless artisan heritage of Jaipur, Laxya crafts luxury kurtas, straight palazzo trousers, and premium linen co-ord sets designed for the modern global woman.
             </p>
+            <div className="mt-4 pt-4 border-t border-obsidian/5 text-[11px] text-obsidian/70 space-y-1">
+              <p><span className="font-semibold text-obsidian">Trade Name:</span> LAXYA</p>
+              <p><span className="font-semibold text-obsidian">Legal Entity / Proprietor:</span> KHUSHI SAINI</p>
+            </div>
           </div>
 
-          {/* Help Column */}
-          <div id="contact" className="md:col-span-3 md:col-start-6">
+          {/* Quick Links & Policies Column */}
+          <div className="md:col-span-3">
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-obsidian">
-              Help
+              Policies &amp; Help
             </h4>
             <ul className="mt-4 space-y-2.5 text-xs text-obsidian/85 font-medium tracking-wide">
               <li>
-                <a href="mailto:support@laxyajaipur.com" className="hover:text-gold transition-colors">
+                <Link href="/contact" className="hover:text-gold transition-colors">
                   Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/shipping" className="hover:text-gold transition-colors">
+                  Shipping &amp; Delivery Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/returns" className="hover:text-gold transition-colors">
+                  Returns &amp; Refund Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-gold transition-colors">
+                  Terms &amp; Conditions
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="hover:text-gold transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Customer Support & Contact Info */}
+          <div id="contact" className="md:col-span-3">
+            <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-obsidian">
+              Customer Support
+            </h4>
+            <ul className="mt-4 space-y-3 text-xs text-obsidian/85 font-medium tracking-wide">
+              <li className="flex items-start gap-2.5">
+                <Mail className="h-4 w-4 text-gold shrink-0 mt-0.5" />
+                <a href="mailto:laxya.jaipur08@gmail.com" className="hover:text-gold transition-colors break-all">
+                  laxya.jaipur08@gmail.com
                 </a>
               </li>
-              <li>
-                <span className="hover:text-gold transition-colors cursor-pointer">
-                  Size Guide
-                </span>
+              <li className="flex items-center gap-2.5">
+                <Phone className="h-4 w-4 text-gold shrink-0" />
+                <a href="tel:+917340661295" className="hover:text-gold transition-colors">
+                  +91 7340661295
+                </a>
               </li>
-              <li>
-                <span className="hover:text-gold transition-colors cursor-pointer">
-                  Shipping
-                </span>
+              <li className="flex items-start gap-2.5">
+                <MapPin className="h-4 w-4 text-gold shrink-0 mt-0.5" />
+                <span>Jaipur, Rajasthan, 302001, India</span>
               </li>
-              <li>
-                <span className="hover:text-gold transition-colors cursor-pointer">
-                  Returns &amp; Exchanges
-                </span>
+              <li className="text-[11px] text-obsidian/60 pt-1">
+                Support Hours: Mon – Sat (10:00 AM – 7:00 PM IST)
               </li>
             </ul>
           </div>
 
           {/* Follow Us Column */}
-          <div className="md:col-span-4">
+          <div className="md:col-span-2">
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-obsidian">
               Follow us
             </h4>
@@ -188,7 +204,7 @@ export function Footer() {
                 <span className="tracking-wide">@laxya.jaipur</span>
               </a>
               <p className="text-[11px] text-obsidian/75 font-medium tracking-wide">
-                Join our Instagram community for exclusive behind-the-scenes artisanal stories and styling tips.
+                Artisanal stories and styling tips from Jaipur.
               </p>
             </div>
           </div>
@@ -196,25 +212,32 @@ export function Footer() {
 
         {/* Bottom Legal Section */}
         <div className="mt-8 pt-8 border-t border-obsidian/10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col items-center md:items-start gap-2">
-            <p className="text-[10px] text-obsidian/75 font-medium uppercase tracking-widest">
-              &copy; {currentYear} House of Laxya Jaipur. All rights reserved.
+          <div className="flex flex-col items-center md:items-start gap-1.5">
+            <p className="text-[10px] text-obsidian/85 font-semibold uppercase tracking-widest">
+              &copy; {currentYear} LAXYA. All rights reserved.
             </p>
-            <div className="flex gap-4 text-[10px] text-obsidian/70 font-medium uppercase tracking-widest">
-              <span className="hover:text-gold transition-colors cursor-pointer">Privacy Policy</span>
+            <p className="text-[10px] text-obsidian/60 tracking-wider">
+              Legal Entity: KHUSHI SAINI &bull; Operating Address: Jaipur, Rajasthan, India
+            </p>
+            <div className="flex flex-wrap gap-3 text-[10px] text-obsidian/70 font-medium uppercase tracking-widest pt-1">
+              <Link href="/privacy" className="hover:text-gold transition-colors">Privacy Policy</Link>
               <span>•</span>
-              <span className="hover:text-gold transition-colors cursor-pointer">Terms of Service</span>
+              <Link href="/terms" className="hover:text-gold transition-colors">Terms &amp; Conditions</Link>
               <span>•</span>
-              <span className="hover:text-gold transition-colors cursor-pointer">Accessibility</span>
+              <Link href="/shipping" className="hover:text-gold transition-colors">Shipping</Link>
+              <span>•</span>
+              <Link href="/returns" className="hover:text-gold transition-colors">Returns &amp; Refunds</Link>
+              <span>•</span>
+              <Link href="/contact" className="hover:text-gold transition-colors">Contact</Link>
             </div>
           </div>
 
           {/* Payment Icons */}
-          <div className="flex flex-wrap items-center gap-3 opacity-60">
-            {["Visa", "Mastercard", "Amex", "Stripe", "UPI", "Apple Pay", "G Pay"].map((badge) => (
+          <div className="flex flex-wrap items-center gap-2 opacity-75">
+            {["Cashfree", "UPI", "Visa", "Mastercard", "Amex", "Net Banking", "COD"].map((badge) => (
               <span
                 key={badge}
-                className="px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-obsidian border border-obsidian/10 bg-white"
+                className="px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-obsidian border border-obsidian/10 bg-white shadow-xs"
               >
                 {badge}
               </span>
